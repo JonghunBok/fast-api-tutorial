@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Path
 from typing import Optional, List
 from enum import Enum
 from pydantic import BaseModel
@@ -49,7 +49,7 @@ async def read_file(file_path: str):
 fake_items_db = [{"item_name": "foo"},{"item_name": "bar"},{"item_name": "baz"}]
 
 @app.get("/items/")
-async def read_items(q: Optional[List[str]] = Query(["hey", "default"])):
+async def read_items(q: Optional[List[str]] = Query(None, alias="item-query")):
     results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
     results.update({"q": q})
     return results

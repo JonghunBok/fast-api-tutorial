@@ -77,8 +77,6 @@ link: https://fastapi.tiangolo.com/tutorial/
     - singular type 인자다 -> query parameter
     - Pydantic Model 인자다 -> request body
 
-
-## doing:
 - Query Parameters and String Validations
   - Query 클래스를 import해와서 쿼리에 추가적인 제약을 넣을 수 있다.
     예시:
@@ -98,4 +96,17 @@ link: https://fastapi.tiangolo.com/tutorial/
   - Query를 이용해 List에 기본값을 줄 수도 있다.
     하지만 이 때, q를 분기문의 조건으로 두면, 그냥 통과한다.
 
+  - Query 클래스에 다양한 메타 데이터를 넣어서, Document 사용자에게 추가적인 
+    정보를 줄 수 있다.
+    예시:
+    - title
+    - description
+    
+  - alias를 통해 외부에 노출하는 API 모양을 바꿀 수도 있다.
+  - deprecated 를 추가해 deprecation 여부를 명시할 수 있다.
 
+
+## doing:
+
+-  Path Parameters and Numeric Validations
+  - 
