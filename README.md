@@ -106,7 +106,37 @@ link: https://fastapi.tiangolo.com/tutorial/
   - deprecated 를 추가해 deprecation 여부를 명시할 수 있다.
 
 
+-  Path Parameters and Numeric Validations
+  - Path parameters에는 None 기본값을 넣어도, 여전히 required이다.
+  - 파이썬은 기본값이 없는 인자보다 기본값이 있는 인자가 먼저 오면 
+    싫어한다. FastAPI는 이름을 통해 인자를 탐지하기 때문에 상관없다.
+  - 만약, 순서를 바꾸고 싶다면, 함수의 첫번째 인자를 "\*"로 하면, 
+    kwargs로 인자들이 불려지기 괜찮아진다.
+  - Path 인자도 Query 인자와 마찬가지로 추가 제약 및 메타 데이터를
+    넣을 수 있다.
+    - int와 float를 위한:
+      - ge(greater than or equal)
+      - gt
+      - lt
+      - le(less than or equal)
+
+    - Query와 Path는 모두 Param 클래스의 서브 클래스이다.
+      하지만, 사실 막상 import 되는 Query와 Path는 함수인데,
+      동명의 클래스의 인스턴스를 반환한다.
+      이렇게 구현된 이유는, 에디터에서 별다른 환경설정 없이
+      편하게 쓸 수 있게 하기 위해서다.
+
+      > DX가 정말 중요하게 여겨지기도 하는 구나....
+
+- Body - Multiple parameters
+  - 여러 개의 body 인자를 정의하면, 각 인자의 이름을 키로 하는
+    객체를 받는 API를 만들 수 있다.
+  - 하나의 body 인자만을 받아도, Body 생성자에 "embed=True"를 넣어주면
+    인자 이름을 키로 하는 객체를 담은 객체를 body 로 받을 수 있다.
+  - Body에도 gt 등의 제약 조건을 넣어줄 수 있다.
+
+
 ## doing:
 
--  Path Parameters and Numeric Validations
+- Body -Fields
   - 
