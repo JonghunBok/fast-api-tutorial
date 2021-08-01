@@ -196,6 +196,44 @@ link: https://fastapi.tiangolo.com/tutorial/
         않을 수도 있다는 걸 염두에 둬야 한다.
   - List[str]로 받으면 동명의 헤더를 여러 개 받을 수 있다.
 
+- Reponse Model
+  - 요청으로 들어오는 데이터를 위한 모델 뿐만 아니라,
+    응답으로 보내는 데이터를 위한 데이터 모델도 정의할 수 있다.
+  - 데코레이터 함수에 response_model이라는 이름의 인자를 주면 된다.
+  - 이렇게 하면 내가 정확한 형식으로 응답을 보내고 있는지 확인할 수 있다.
+  - fastapi는 response_model을 가지고 다음을 한다:
+    - 타입 정의에 맞게 출력 데이터를 변환
+    - 데이터 검증
+    - 응답을 위한 JSON Schema 추가
+    - 자동 문서화에 사용
+    - 모델에 맞게 출력 데이터 제한 **(가장 중요하다)**
+      > 필터가 되는게 정말 방어적인 프로그래밍을 할 때 편할 것 같다.
+  - 응답에도 기본값을 넣을 수 있다.
+    - "response_model_exclude_unset" 플래그를 참으로 하면,
+      필드에 기본값이 있어도 초기화되지 않았다면 응답에 포함시키지 않을 수 있다.
+    - 기본값과 같은 값이라도 명시적으로 대입됐다면, 응답에  포함된다.
+  - response_model_include, response_model_exclude 를 통해 어떤 필드만 응답에 포함할지, 안할지 정할 수 있다.
+
+- Extra Models
+    > 이를 통해 같은 데이터 모델을 쓰면서도 실제 응답의 형태를 조정할 수 있겠다.
+  - 고차원 모델을 만듦으로써 코드의 중복을 피할 수 있다.
+    - 이 때 다양한 자식 클래스들을 일종의 "state"로 생각할 수도 있다.
+  - 타입에 Union도 사용할 수 있다...
+    > typing을 파이썬에서 typescript를 사용하게 해주는 라이브러리로 이해해도 문제없겠다...
+
+
+- Response Status Code
+  - 데코레이터 함수 안에 status_code 정수 인자를 넣어 응답의 상태 코드를 명시할 수 있다.
+  - fastapi에서 status를 import해 사용해도 된다.
+    - starlette에서 가져와도 된다. 
+    - 똑같은 status고, 편의를 위해 fastapi에서도 제공하는 거다.
+  - 상태 코드별 특성도 FastAPI가 이해해서 알아서 문서를 알맞게 만들어 준다.
+    - 특정 상태 코드는 body가 없는 응답이라던지 등등
+
+- Form Data
+  - Form 은 Body를 직접 상속한다.
 
 ## doing:
-- Reponse Model
+
+- Request Files
+
