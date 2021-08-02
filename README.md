@@ -232,8 +232,42 @@ link: https://fastapi.tiangolo.com/tutorial/
 
 - Form Data
   - Form 은 Body를 직접 상속한다.
-
-## doing:
+  - **percent encoding**
 
 - Request Files
+  - Form도 그렇고, UploadFile도 그렇고, 업로드되는 파일을 받거나 폼을 사용하려면
+    python-mulitpart를 설치하라고 한다.
+    > 없어도 되긴 예제가 잘 돌아가긴 한다. 
+    > 아마 fastapi를 full로 설치할 때 같이 들어오거나,
+    > 서버에서 가공할 때 문제가 생기나 보다.
+    > form에서 데이터를 submit할 때 multipart로 간다고 한다.
+  - File은 Form 클래스를 직접 상속한다.
+  - File을 사용하지 않으면 body나 query 인자로 해석하기 때뭉네 꼭 붙여야 한다.
+  - bytes로 파일을  받으면, FastAPI가 파일을 읽어서 그 내용을 bytes에 담는다.
+    - 이 말은 파일 전체가 메모리에 담긴다는 뜻이다.
+    > 스케일이 커지면 바로 문제가 생길 듯...
+  - UploadFile을 사용하면 다음의 장점이 있다:
+    - spooled file을 이용한다.
+      - 특정 용량까지는 메모리에 차지만, 그 이상으로는 디스크에 저장되는 방식
+    - 메모리를 바닥내지 않으면서 큰 파일을 다룰 수 있다:
+      - image
+      - video
+      - large binaries
+      - etc
+    - 업로드된 파일의 메타데이터를 얻을 수 있다.
+    - file-like한 async 인터페이스를 갖고 있다.
+    - UploadFile은 다음의 속성을 갖는다:
+      - filename: str, 원래 파일의 이름
+      - content_type: str, MIME type/media type
+      - file: SpooledTemporaryFile
+    - UploadFile은 다음의 async 메소드를 갖는다:
+      - write(data)
+      - read(size)
+      - seek(offset)
+      - close()
+  - File도 List를 붙여 여러 개를 한 번에 받을 수 있다.
+
+
+## doing:
+- Request Forms and Files
 
