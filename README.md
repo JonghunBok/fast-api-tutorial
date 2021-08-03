@@ -267,7 +267,37 @@ link: https://fastapi.tiangolo.com/tutorial/
       - close()
   - File도 List를 붙여 여러 개를 한 번에 받을 수 있다.
 
+- Request Forms and Files
+  - Form과 File, UploadFile을 함께 써서 동시에 받을 수도 있다.
+
+
+---
+
+- Middelware
+  - 콜백함수와 비슷한 흐름제어가 있는 듯 하다.
+  - 모든 요청과 응답이 거치는 곳이라고 생각하면 된다.
+
+
+- Static Files
+  - StaticFiles를 사용해 디렉토리로부터 정적파일을 서빙할 수 있다.
+  - aiofiles라는 라이브러리를 설치해야 한다.
+  - sub-path를 담당하며, 정적 파일을 다루는 독립적인 application을
+    만들고 마운팅 시키는 식이다. 3가지 정보가 필요하다:
+    - sub-path
+    - directory name
+    - 내부적으로 사용될 이름
+
+> 전반적으로 Starlette, Pydantic의 문서까지 봐야 
+> 이해하고 파인 튜닝할 수 있는 부분들이 있다.
+> 편하긴 하지만, 그렇다고 기반 기술을 아주 모르고 
+> 사용할 순 없겠다.
+> 모든 hihg-level tool들의 숙명인 것 같다.
+> 덜 생각하며 쓰려고 만들었지만, 결국 모든 걸 생각해야 하는.. ㅠㅠ..
 
 ## doing:
-- Request Forms and Files
 
+- Handling Errors
+  - HTTPException을 이용해 클라이언트에게 의미있는
+    에러 메시지를 전달할 수 있다.
+  > python은 throw가 아니라 raise구나...
+  - 커스텀 에러도 넣을 수 있다..
