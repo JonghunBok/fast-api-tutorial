@@ -270,12 +270,65 @@ link: https://fastapi.tiangolo.com/tutorial/
 - Request Forms and Files
   - Form과 File, UploadFile을 함께 써서 동시에 받을 수도 있다.
 
+- Handling Errors
+  - HTTPException을 이용해 클라이언트에게 의미있는
+    에러 메시지를 전달할 수 있다.
+  > python은 throw가 아니라 raise구나...
+  - 커스텀 에러도 넣을 수 있다..
+    - starlette의 exception utilites를 사용할 수 있다.
+  - detail 인자에는 str 뿐만 아니라 JSON화 할 수 있는 데이터는 다 넣을 수 있다.
+  - error 발생 시에는 응답이 미들웨어를 거치지 못한다..
+    - 요청은 거치는데, 중간에 흐름이 끊긴다.
+  - FastAPI는 default exception handler를 제공하고, 이 핸들러들은 오버라이드할
+    수 있다:
+    - RequestValidationError
+    - ValidationError
+    - HTTPException error handler
+  - 오버라이드 뿐만 아니라 재사용도 할 수 있다.
+    - 기본 핸들러를 호출하는 상위 함수를 만들어서!
 
+- Path Operation Configuration
+  - path operation decorator에 인자를 넘겨 오퍼레이션을 설정할 수 있다.
+  - status_code
+  - tags
+  - summary
+  - description
+  - docstring (인자에 넣는 건 아니다. 함수 시그니쳐 바로 아래)
+  - response_description
+  - deprecated
+
+- JSON Compatible Encoder
+  - fastapi는 jsonable_encoder를 제공한다.
+    - 이 엔코더를 이용해 Pydantic model처럼 JSON 호환 형식으로 
+      변환해야 하는 데이터를 변환할 수 있다.
+    - 데이터베이스에 데이터를 넣을 때 사용할 수 있다.
+    - 파이썬 스탠다드 json.dumps()와 비슷하다.
+
+- Body - Updates
+  - 원래 부분 업데이트는 PUT이 아니라 PATCH를 쓴다고 한다.
+    - 근데 그냥 PUT을 쓰곤 한다.
+    - FastAPI가 하나의 방식을 강제하진 않는다.
+  - 부분 업데이트는 추가적인 노력이 들어가고, FastAPI는
+    필요한 메소드를 제공한다.
 ---
 
 - Middelware
   - 콜백함수와 비슷한 흐름제어가 있는 듯 하다.
   - 모든 요청과 응답이 거치는 곳이라고 생각하면 된다.
+
+
+- Metadata and Docs URLs
+  - FastAPI를 처음 초기화할 때 인자를 넣어 앱에 대한 메타데이터를
+    설정할 수 있다.
+    - title
+    - description
+    - version
+    - terms_of_service: URL이어야 한다.
+    - contact
+    - license_info
+    - openapi_tags
+    - openapi_url
+    - docs_url
 
 
 - Static Files
@@ -287,17 +340,18 @@ link: https://fastapi.tiangolo.com/tutorial/
     - directory name
     - 내부적으로 사용될 이름
 
+
+- Debugging
+  - IDE를 이용해 디버깅하려면, 서버 파일이 메인으로서 실행돼야 한다.
+    - if __name__ == "__main__": 아래에서 직접 uvicorn을 실행한다.
+    - 그리고 IDE의 디버깅 기능을 이용하면 된다.
+
+
+## doing:
+
 > 전반적으로 Starlette, Pydantic의 문서까지 봐야 
 > 이해하고 파인 튜닝할 수 있는 부분들이 있다.
 > 편하긴 하지만, 그렇다고 기반 기술을 아주 모르고 
 > 사용할 순 없겠다.
 > 모든 hihg-level tool들의 숙명인 것 같다.
 > 덜 생각하며 쓰려고 만들었지만, 결국 모든 걸 생각해야 하는.. ㅠㅠ..
-
-## doing:
-
-- Handling Errors
-  - HTTPException을 이용해 클라이언트에게 의미있는
-    에러 메시지를 전달할 수 있다.
-  > python은 throw가 아니라 raise구나...
-  - 커스텀 에러도 넣을 수 있다..
