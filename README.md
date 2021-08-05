@@ -349,6 +349,27 @@ link: https://fastapi.tiangolo.com/tutorial/
 
 ## doing:
 
+- Dependencies
+  - Dependencies - First Steps
+    - FastAPI는 강력하고 직관적인 DI(Dependency Injection) 시스템을 가진다.
+    - DI는 다음의 상황에서 유용할 수 있다:
+      - 공통 로직이 있을 때
+      - DB 커넥션을 공유할 때
+      - security, authentication, role requirements, etc를 강제할 때
+    - DI의 다른 이름들:
+      - resources
+      - providers
+      - services
+      - injectables
+      - components
+  - Classes as Dependencies
+  - Sub-dependencies
+  - Dependencies in path operation decorators
+  - Global Dependencies
+  - Dependencies with yield
+
+---
+
 > 전반적으로 Starlette, Pydantic의 문서까지 봐야 
 > 이해하고 파인 튜닝할 수 있는 부분들이 있다.
 > 편하긴 하지만, 그렇다고 기반 기술을 아주 모르고 
