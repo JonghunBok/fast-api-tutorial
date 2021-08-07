@@ -310,6 +310,52 @@ link: https://fastapi.tiangolo.com/tutorial/
     - FastAPI가 하나의 방식을 강제하진 않는다.
   - 부분 업데이트는 추가적인 노력이 들어가고, FastAPI는
     필요한 메소드를 제공한다.
+
+- Dependencies
+  - Dependencies - First Steps
+    - FastAPI는 강력하고 직관적인 DI(Dependency Injection) 시스템을 가진다.
+    - DI는 다음의 상황에서 유용할 수 있다:
+      - 공통 로직이 있을 때
+      - DB 커넥션을 공유할 때
+      - security, authentication, role requirements, etc를 강제할 때
+    - DI의 다른 이름들:
+      - resources
+      - providers
+      - services
+      - injectables
+      - components
+  - Classes as Dependencies
+    - Dependency의 반환값을 그저 dict로 받으면, 에디터는 반환값의 형식을 모른다.
+    - Dependency는 꼭 함수일 필요는 없고, "callable"하기만 하면 된다.
+      - 파이썬에서 Class는 callable이다.
+      - 그래서 FastAPI에서는 파이썬 클래스를 dependency로 사용할 수 있다.
+      - 만약 클래스를 사용하고 있다면 Type Annotation이나 Depends의 인자 중 하나를
+        생략할 수 있다.
+        - Type Annotation을 생략하면 에디터의 도움을 못받는다.
+        - Depends의 인자를 생략하면, 코드가 헷갈릴 수 있지만, 코드 중복을 피할 수 있다.
+
+  - Sub-dependencies
+    - 디펜던시 트리는 원하는 만큼 깊어질 수 있다.
+    - 디펜던시가 "디펜던시"이면서 동시에 "디펜더블"일 수 있다.
+    - 다수의 디펜던시가 같은 sub-dependency를 가져도, FastAPI가 알아서 한 번만 호출한다.
+  - Dependencies in path operation decorators
+    - 함수가 아니라 데코레이터에 디펜던시를 넣을 수도 있다.
+      - 이땐 dependencies라는 인자에 Depends()의 리스트를 넣으면 된다.
+  - Global Dependencies
+    - 아예 dependencies를 FastAPI의 인스턴스를 만들 때 넣어주면,
+      글로벌하게 디펜던시를 적용할 수 있다.
+  - Dependencies with yield
+    - 요청 처리를 마친 후에 디펜던시의 남은 코드를 실행할 수도 있다.
+      - exit, cleanup, teardown, close, context managers 등으로 불리는 작업들.
+    - 이때는 return 대신 yield를 사용한다.
+      - yield는 한 번만 사용한다.
+    - Python 3.7 이상을 사용하거나, Python 3.6에 "backports"를 설치해야 한다.
+    - 내부적으로 Python의 Context Managers를 사용한다.
+    - yield 이후의 작업은 이미 응답이 보내진 후에 작동한다.
+      - HTTPException 에러를 내려면 Exception Handler를 작성해야 한다.
+      - 그래서 db 연결이 응답 전까지 유지되고,
+        디펜던시 사이에 공유될 수 있다.
+    - Context Managers는 with과 함께 쓸 수 있는 파이썬 오브젝트다.
 ---
 
 - Middelware
@@ -349,24 +395,14 @@ link: https://fastapi.tiangolo.com/tutorial/
 
 ## doing:
 
-- Dependencies
-  - Dependencies - First Steps
-    - FastAPI는 강력하고 직관적인 DI(Dependency Injection) 시스템을 가진다.
-    - DI는 다음의 상황에서 유용할 수 있다:
-      - 공통 로직이 있을 때
-      - DB 커넥션을 공유할 때
-      - security, authentication, role requirements, etc를 강제할 때
-    - DI의 다른 이름들:
-      - resources
-      - providers
-      - services
-      - injectables
-      - components
-  - Classes as Dependencies
-  - Sub-dependencies
-  - Dependencies in path operation decorators
-  - Global Dependencies
-  - Dependencies with yield
+- Security
+  - Security Intro
+  - Security - First Steps
+  - Get Current User
+  - Smaple OAuth2 with Password and Bearer
+  - OAuth2 with Password (and hashing), Bearer with JWT tokens
+
+
 
 ---
 
