@@ -363,6 +363,43 @@ link: https://fastapi.tiangolo.com/tutorial/
   - 모든 요청과 응답이 거치는 곳이라고 생각하면 된다.
 
 
+- CORS(Cross-OriginResource Sharing)
+  - origin은 다음의 조합이다:
+    - protocol (http, https)
+    - domain
+    - port
+  > 당연히도 CORS는 L7... 브라우저에서 검사하니깐..
+
+  - allowed origins를 와일드카드(*)로 둘 수도 있다.
+    그런데 그러면, credential과 관련된 통신은 허용되지 않는다:
+    - Cookies
+    - Authorization headers
+      - Bearer Tokens
+      - etc
+  - FastAPI는 CORSMiddleware를 제공한다.
+  - CORSMiddleware는 다음의 인자를 받을 수 있다:
+    - allow_origins
+    - allow_origin_regex
+    - allow_methods
+    - allow_headers
+    - allow_credentials
+    - expose_headers
+    - max_age
+
+    
+
+- Background Tasks 
+  - 응답을 보낸 후에 어떤 작업들을 할지 예약할 수 있다.
+  - 굳이 유저가 기다릴 필요가 없는 일들을 이렇게 처리하면 된다.
+  - background task는 async일 수도 있고, 아닐 수도 있다.
+  - background_tasks라는 BackgroundTasks 타입의 인자를 받고,
+    이 객체의 .add_task() 함수를 이용하면 된다.
+  - 디펜던시 안에서도 잘 작동한다.
+  - starlette의 starlette.background에서 그대로 가져왔다.
+  - 만약 추가적으로 실행하는 백그라운드 테스트가 무겁고,
+    같은 프로세스에서 처리할 필요가 없다면, Celery, RabbitMQ,
+    Redis 같은 더 큰 전문적 툴을 이용하는 것을 고려해 볼 수 있다.
+
 - Metadata and Docs URLs
   - FastAPI를 처음 초기화할 때 인자를 넣어 앱에 대한 메타데이터를
     설정할 수 있다.
@@ -385,6 +422,17 @@ link: https://fastapi.tiangolo.com/tutorial/
     - sub-path
     - directory name
     - 내부적으로 사용될 이름
+
+- Testing
+  - Python의 Requests에 기반하여 친숙하고 직관적이다.
+    - 구글링하기도 쉽다.
+    - 만약 fastapi로 TDD하게 되면, Request 문서를
+      일독하고 해야 하겠다.
+  - Starlette 덕분에 테스팅이 쉽고 재밌다.
+  - pytest를 직접적으로 이용할 수 있다.
+  > 상대 주소를 사용하려면, __init__.py를 만들어 패키지로
+    만들어줘야 한다...
+  > pytest가 직관적이라 편하다.
 
 
 - Debugging
