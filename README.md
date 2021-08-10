@@ -356,12 +356,22 @@ link: https://fastapi.tiangolo.com/tutorial/
       - 그래서 db 연결이 응답 전까지 유지되고,
         디펜던시 사이에 공유될 수 있다.
     - Context Managers는 with과 함께 쓸 수 있는 파이썬 오브젝트다.
----
+
+- Security
+  - OAuth2에는 여러 "flows"가 있다.
+  - 본 튜토리얼에서는 `password` flow를 이용한다.
+  - JWT도 맛을 본다.
+  - OAuth2 스펙과 JWT에 대한 이해 없이는 별 의미가 없겠다 싶어 따라만 해보았다.
+  - 스펙 공부의 중요성을 알게 됐다.
+
+
+  - Get Current User
+  - Smaple OAuth2 with Password and Bearer
+  - OAuth2 with Password (and hashing), Bearer with JWT tokens
 
 - Middelware
   - 콜백함수와 비슷한 흐름제어가 있는 듯 하다.
   - 모든 요청과 응답이 거치는 곳이라고 생각하면 된다.
-
 
 - CORS(Cross-OriginResource Sharing)
   - origin은 다음의 조합이다:
@@ -386,7 +396,12 @@ link: https://fastapi.tiangolo.com/tutorial/
     - expose_headers
     - max_age
 
-    
+- SQL (Relational) Databases
+  - 그저 따라하기만 될 것 같아 생략한다.
+
+- Bigger Applications - Mulitple Files
+  - APIRouter를 이용해 작은 app인 router들을 만들 수 있다.
+  - `__init__.py`를 이용해 패키지화해서 import를 편하게 하는 게 폴더 구조 구성의 핵심이다.
 
 - Background Tasks 
   - 응답을 보낸 후에 어떤 작업들을 할지 예약할 수 있다.
@@ -439,18 +454,6 @@ link: https://fastapi.tiangolo.com/tutorial/
   - IDE를 이용해 디버깅하려면, 서버 파일이 메인으로서 실행돼야 한다.
     - if __name__ == "__main__": 아래에서 직접 uvicorn을 실행한다.
     - 그리고 IDE의 디버깅 기능을 이용하면 된다.
-
-
-## doing:
-
-- Security
-  - Security Intro
-  - Security - First Steps
-  - Get Current User
-  - Smaple OAuth2 with Password and Bearer
-  - OAuth2 with Password (and hashing), Bearer with JWT tokens
-
-
 
 ---
 
